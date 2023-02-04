@@ -10,7 +10,7 @@ const QUERY = gql`
       name
       date
     }
-    artists {
+    artists(orderBy: publishedAt_DESC) {
       name
       coverPhoto {
         url
