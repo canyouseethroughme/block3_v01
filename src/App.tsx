@@ -13,6 +13,7 @@ const QUERY = gql`
     }
   }
 `;
+
 const App = () => {
   const { loading, error, data } = useQuery(QUERY);
 
