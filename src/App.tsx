@@ -1,7 +1,15 @@
 import { useQuery, gql } from "@apollo/client";
+import React from "react";
 
 const QUERY = gql`
   {
+    pastEvents(first: 1) {
+      name
+    }
+    futureEvents(first: 1) {
+      name
+      date
+    }
     artists {
       name
       coverPhoto {
@@ -34,15 +42,44 @@ const App = () => {
   return (
     <div className="App">
       <code>
-        <b> Artists:</b> <br />
+        <b>Past Event:</b>{" "}
       </code>
-      {data &&
-        data.artists.map((artist: any, i: number) => (
-          <code key={i}>
-            {artist.name}
-            <br />
-          </code>
-        ))}
+      <code>{data.pastEvents[0].name}</code>
+      <br />
+      <br />
+
+      <code>
+        <b>Future Event:</b>{" "}
+      </code>
+      <code>
+        {data.futureEvents[0].name} / {data.futureEvents[0].date}
+      </code>
+      <br />
+      <br />
+
+      <code>
+        <b>Artists:</b>
+      </code>
+      <br />
+      {data.artists.map((artist: any, i: number) => (
+        <React.Fragment key={i}>
+          <code>{artist.name}</code>
+          <br />
+          <img
+            src={artist.coverPhoto.url}
+            loading="lazy"
+            alt={artist.name}
+            style={{
+              width: "100%",
+              maxWidth: "4rem",
+              height: "4rem",
+              objectFit: "cover",
+            }}
+          />
+          <br />
+          <br />
+        </React.Fragment>
+      ))}
     </div>
   );
 };
